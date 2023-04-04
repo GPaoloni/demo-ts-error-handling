@@ -11,7 +11,7 @@ This repo contains 3 branches:
 
 The idea is for you to navigate the branches, specially `src/index.ts` file. At the bottom of this file I'm leaving some comments-opinions (emphasize opinion here).
 
-None of the three branches aims to do the smartest error handling. I'm sure there are better ways to handle the exceptions, but exceptions are "branches in the execution flow", and there's no way around that. We can add one try/catch block per potential error being arise, and that does not removes the need to keep track of the error instances, neither does that helps signaling which parts of the code might throw an exception. Yes, we can use the @throws JSDoc annotations, but that's documentation and still does not benefit from the compiler. In contrast, error objects must be checked and we'll only be able to use them once we let the compiler know that it is safe to do so.
+None of the three branches aims to do the smartest error handling. I'm sure there are better ways to handle the exceptions, but exceptions are "branches in the execution flow", and there's no way around that. We can add one try/catch block per potential error, and that does not removes the need to keep track of the error instances, neither does that helps signaling which parts of the code might throw an exception. Yes, we can use the @throws JSDoc annotations, but that's documentation and still does not benefit from the compiler. In contrast, error objects must be checked and we'll only be able to use them once we let the compiler know that it is safe to do so.
 
 I tried to stay away from any kind of fancy or functional approach to this idea, and just showing the difference between `throw`ing errors vs `return`ing objects with the same semantic meaning.
 
