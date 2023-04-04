@@ -1,4 +1,4 @@
-import { NotExistsError } from "./errors";
+import { notExistsError, NotExistsError } from "./errors";
 
 type User = {
   id: string;
@@ -20,27 +20,43 @@ const users: User[] = [
   }
 ]
 
-export class InvalidUserIdError extends Error {
+type InvalidUserIdError = {
+  name: 'InvalidUserIdError';
   cause: Error;
-
-  constructor(id: string) {
-    super(id);
-    this.cause = new Error(`Invalid id provided ${id}`);
-    this.name = 'InvalidUserIdError';
-    Object.setPrototypeOf(this, InvalidUserIdError.prototype);
-  }
 }
 
-export const fetchUser = async (id: string): Promise<User> => {
+const invalidUserIdError = (id: string): InvalidUserIdError => ({
+  name: 'InvalidUserIdError',
+  cause: new Error(`Invalid id provided ${id}`),
+})
+
+type UserPayload = {
+  status: 'success';
+  payload: User;
+} | {
+  status: 'error';
+  error: NotExistsError | InvalidUserIdError;
+}
+
+export const fetchUser = async (id: string): Promise<UserPayload> => {
   if (!id) {
-    throw new InvalidUserIdError(id);
+    return {
+      status: 'error',
+      error: invalidUserIdError(id),
+    };
   }
 
   const user = users.find(u => u.id === id);
 
   if (!user) {
-    throw new NotExistsError(new Error(`User with id ${id} does not exists`));
+    return {
+      status: 'error',
+      error: notExistsError(`User with id ${id}`),
+    };
   }
 
-  return user;
+  return {
+    status: 'success',
+    payload: user,
+  };
 }

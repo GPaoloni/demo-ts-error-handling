@@ -1,10 +1,9 @@
-export class NotExistsError extends Error {
-  cause: Error;
-
-  constructor(error: Error) {
-    super(error.message);
-    this.cause = error;
-    this.name = 'NotExistsError';
-    Object.setPrototypeOf(this, NotExistsError.prototype);
-  }
+export type NotExistsError = {
+    name: 'NotExistsError';
+    cause: Error,
 }
+
+export const notExistsError = (description: string): NotExistsError => ({
+  name: 'NotExistsError',
+  cause: new Error(description),
+})

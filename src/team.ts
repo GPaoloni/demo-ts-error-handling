@@ -1,4 +1,4 @@
-import { NotExistsError } from "./errors";
+import { notExistsError, NotExistsError } from "./errors";
 
 type Team = {
   id: string;
@@ -16,27 +16,42 @@ const teams: Team[] = [
   }
 ];
 
-export class BadTeamError extends Error {
+type BadTeamError = {
+  name: 'BadTeamError';
   cause: Error;
-
-  constructor(id: string) {
-    super(id);
-    this.cause = new Error(`No that team :( ${id}`);
-    this.name = 'BadTeamError';
-    Object.setPrototypeOf(this, BadTeamError.prototype);
-  }
 }
 
-export const rateTeam = async (id: string): Promise<Team> => {
+const badTeamError = (id: string): BadTeamError => ({
+  name: 'BadTeamError',
+  cause: new Error(`No that team :( ${id}`),
+})
+
+type TeamPayload = {
+  status: 'success';
+  payload: Team;
+} | {
+  status: 'error';
+  error: NotExistsError | BadTeamError;
+}
+
+export const rateTeam = async (id: string): Promise<TeamPayload> => {
   const team = teams.find(t => t.id === id);
-
   if (!team) {
-    throw new NotExistsError(new Error(`Team with id ${id} does not exists`));
-  }
-  
-  if (team.score < 3) {
-    throw new BadTeamError(id);
+    return {
+      status: 'error',
+      error: notExistsError(`Team with id ${id}`),
+    };
   }
 
-  return team;
+  if (team.score < 3) {
+    return {
+      status: 'error',
+      error: badTeamError(id),
+    };
+  }
+
+  return {
+    status: 'success',
+    payload: team,
+  };
 }
