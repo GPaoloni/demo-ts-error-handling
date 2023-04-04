@@ -48,6 +48,4 @@ const doSomething = async (): Promise<void> => {
  * to check if "err instanceof". In this example this is doable, but the more instances we care about
  * the more we need to track what errors each function might throw.
  * On top of that, you don't even know if a function throws or not!
- * 
- * Next example will introduce a nested propagation of errors.
  */
