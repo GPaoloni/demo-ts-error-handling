@@ -2,7 +2,7 @@
 
 This repo is a quick demo for somethihng that was discussed recently in the Aselo engineering team at Tech Matters.
 
-The idea is to show why modeling the errors as part of the domain, rather than "throwing execptions" makes sense and takes advantage of the TS typesystem.
+The idea is to show why modeling the errors as part of the domain, rather than throwing exceptions makes sense and takes advantage of the TS typesystem.
 
 This repo contains 3 branches:
 - `exceptions-1`: here I do a dirty usage of try/catch blocks in functions that may throw exceptions, just to show how the complexity grows for callers of potentially-failling code.
