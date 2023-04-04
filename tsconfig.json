@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "lib": ["ES2015", "DOM"],
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

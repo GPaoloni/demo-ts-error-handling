@@ -1,0 +1,22 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "typescript": "^5.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GPaoloni/demo-ts-error-handling.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GPaoloni/demo-ts-error-handling/issues"
+  },
+  "homepage": "https://github.com/GPaoloni/demo-ts-error-handling#readme"
+}
